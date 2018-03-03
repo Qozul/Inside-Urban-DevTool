@@ -1,0 +1,25 @@
+﻿<Window x:Class="DevToolProto.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DevToolProto"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="768" Width="1366">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolTovisible" />
+    </Window.Resources>
+    <Grid>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Height="44" Width="297" Click="NodeButtonClick">New USBNode</Button>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,49,0,0" Height="59" Width="297" Click="RoomDescButtonClick">New RoomDesc</Button>
+        <Grid Name="Form" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.384,1.829" Height="614" Margin="10,113,0,0" Width="287">
+            <Grid Name="USBNodeForm" Visibility="Hidden">
+                <TextBlock>Node</TextBlock>
+            </Grid>
+            <Grid Name="RoomDescForm" Visibility="Hidden">
+                <TextBlock>Room Desc</TextBlock>
+            </Grid>
+        </Grid>
+        <Image VerticalAlignment="Center" Source="/res/Floor 1_room_numbers.png" Margin="297,0,0,0" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Width="1051"/>
+    </Grid>
+</Window>
