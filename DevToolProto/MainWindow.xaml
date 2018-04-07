@@ -39,7 +39,19 @@
 
             </Grid>
             <Grid Name="RoomDescForm" Visibility="Visible">
-                <TextBlock>Room Desc</TextBlock>
+                <Label x:Name="lblID_Copy" Content="ID" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="lblID_Value_Copy" Content="----" HorizontalAlignment="Left" Margin="88,10,0,0" VerticalAlignment="Top"/>
+
+                <Label x:Name="lblRDID_Copy" Content="RDID" HorizontalAlignment="Left" Margin="11,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+
+                <Label x:Name="lblPosition_Copy" Content="Position" HorizontalAlignment="Left" Margin="11,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbPosition_Value_Copy" HorizontalAlignment="Left" Height="28" Margin="88,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblConnecting_Copy" Content="Connecting&#xA;Value" HorizontalAlignment="Left" Margin="11,115,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="41" Width="77"/>
+                <TextBox x:Name="txbConnecting_Value_Copy" HorizontalAlignment="Left" Height="28" Margin="88,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <TextBox x:Name="txbRDID_Value_Copy" HorizontalAlignment="Left" Height="28" Margin="88,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+
             </Grid>
         </Grid>
         <Image x:Name="imgFloor" VerticalAlignment="Center" Source="/res/Image1.png" Margin="297,0,0,0" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Width="1051"/>
