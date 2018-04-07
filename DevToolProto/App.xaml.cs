@@ -11,6 +11,7 @@ namespace DevToolProto
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
+    /// testing commit - CD
     public partial class App : Application
     {
     }
