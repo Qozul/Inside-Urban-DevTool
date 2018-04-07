@@ -88,7 +88,7 @@
                 <Button x:Name="btnEditSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,298,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitNode_Click"/>
 
             </Grid>
-            <Grid Name="EditRoomDescForm" Visibility="Visible">
+            <Grid Name="EditRoomDescForm" Visibility="Hidden">
                 
                 <Label x:Name="lblEditRoomDesc" Content="Edit Room Description" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
                 <TextBox x:Name="txbEditRoomDesc_Value" HorizontalAlignment="Left" Height="23" Margin="88,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
@@ -107,6 +107,18 @@
 
 
             </Grid>
+
+            <Grid Name="lstbNodesForm" Visibility="Visible">
+
+                <Label x:Name="lblSelectNode" Content="Select A Node" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
+
+                <ListBox x:Name="lstbSelectNode" HorizontalAlignment="Left" Height="147" Margin="10,59,0,0" VerticalAlignment="Top" Width="267"/>
+
+                <Button x:Name="btnSubmitSelectNode" Content="Submit" HorizontalAlignment="Left" Margin="202,218,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitRoomDesc_Click"/>
+
+
+            </Grid>
+            
         </Grid>
         <Image x:Name="imgFloor" VerticalAlignment="Center" Source="/res/Image1.png" Margin="297,0,0,0" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Width="1051"/>
     </Grid>
