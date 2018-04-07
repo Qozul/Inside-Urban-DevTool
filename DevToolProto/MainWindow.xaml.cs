@@ -15,14 +15,28 @@ using System.Windows.Shapes;
 
 namespace DevToolProto
 {
+    struct NodeData_t
+    {
+        string id;
+        string rdid;
+        string position;
+        string connecting;
+        string level;
+        string isAccessible;
+    }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
 
+        Dictionary<int, NodeData_t> x;
         private Grid usbNodeGrid;
         private Grid roomDescGrid;
+
+        private List<Grid> grids;
+        private List<Button> menuButtons;
 
         public MainWindow()
         {
@@ -36,16 +50,37 @@ namespace DevToolProto
             MessageBox.Show("You clicked me at " + e.GetPosition(this).ToString());
         }
 
-        private void NodeButtonClick(object sender, RoutedEventArgs e)
+        private void NodeBC(object sender, RoutedEventArgs e)
         {
             roomDescGrid.Visibility = System.Windows.Visibility.Hidden;
             usbNodeGrid.Visibility = System.Windows.Visibility.Visible;
         }
 
-        private void RoomDescButtonClick(object sender, RoutedEventArgs e)
+        private void RoomDescBC(object sender, RoutedEventArgs e)
         {
             usbNodeGrid.Visibility = System.Windows.Visibility.Hidden;
             roomDescGrid.Visibility = System.Windows.Visibility.Visible;
+        }
+        private void EditNodeBC(object sender, RoutedEventArgs e)
+        {
+            usbNodeGrid.Visibility = System.Windows.Visibility.Hidden;
+            roomDescGrid.Visibility = System.Windows.Visibility.Visible;
+        }
+        private void EditRoomDescBC(object sender, RoutedEventArgs e)
+        {
+            usbNodeGrid.Visibility = System.Windows.Visibility.Hidden;
+            roomDescGrid.Visibility = System.Windows.Visibility.Visible;
+        }
+        private void ExportBC(object sender, RoutedEventArgs e)
+        {
+        }
+        private void ChangeImageBC(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void ChangeGridVisibility()
+        {
+
         }
 
     }
