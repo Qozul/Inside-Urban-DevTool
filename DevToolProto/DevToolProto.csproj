@@ -122,22 +122,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="res\Floor 1_room_numbers.png" />
+    <Resource Include="res\Image1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="res\Floor 2_room_numbers.png" />
+    <Resource Include="res\Image2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="res\Floor 3_room_numbers.png" />
+    <Resource Include="res\Image3.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="res\Floor 4_room_numbers.png" />
+    <Resource Include="res\Image4.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="res\Floor 5_room_numbers.png" />
+    <Resource Include="res\Image5.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="res\Floor 6_room_numbers.png" />
+    <Resource Include="res\Image6.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
