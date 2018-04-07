@@ -13,17 +13,35 @@
         <Button VerticalAlignment="Top" HorizontalAlignment="Left" Height="44" Width="89" Click="NodeBC" Margin="0,5,0,0">New USBNode</Button>
         <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="82,49,0,0" Height="59" Width="62" Click="RoomDescBC">New RoomDesc</Button>
         <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,49,0,0" Height="59" Width="77" Click="EditNodeBC">Edit Node</Button>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30,121,0,0" Height="59" Width="79" Click="EditRoomDescBC">Edit RoomDesc</Button>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="149,49,0,0" Height="59" Width="79" Click="EditRoomDescBC">Edit RoomDesc</Button>
         <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="179,0,0,0" Height="44" Width="48" Click="ExportBC" RenderTransformOrigin="3.214,-0.65">Export</Button>
         <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="112,5,0,0" Height="44" Width="53" Click="ChangeImageBC">Change Image</Button>
         <Grid Name="Form" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.384,1.829" Height="614" Margin="10,113,0,0" Width="287">
-            <Grid Name="USBNodeForm" Visibility="Hidden">
-                <TextBlock>Node</TextBlock>
+            <Grid Name="USBNodeForm" Visibility="Visible">
+                <Label x:Name="lblID" Content="ID" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="lblID_Value" Content="----" HorizontalAlignment="Left" Margin="88,10,0,0" VerticalAlignment="Top"/>
+
+                <Label x:Name="lblRDID" Content="RDID" HorizontalAlignment="Left" Margin="11,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <Label x:Name="lblRDID_Value" Content="----" HorizontalAlignment="Left" Margin="88,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+
+                <Label x:Name="lblPosition" Content="Position" HorizontalAlignment="Left" Margin="11,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbPosition_Value" HorizontalAlignment="Left" Height="28" Margin="88,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblConnecting" Content="Connecting&#xD;&#xA;Value" HorizontalAlignment="Left" Margin="11,115,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="41" Width="77"/>
+                <TextBox x:Name="txbConnecting_Value" HorizontalAlignment="Left" Height="28" Margin="88,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <Label x:Name="lblLevel" Content="Level" HorizontalAlignment="Left" Margin="11,162,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="47"/>
+                <TextBox x:Name="txbLevel" HorizontalAlignment="Left" Height="28" Margin="88,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <Label x:Name="lblAcessible" Content="Accessible" HorizontalAlignment="Left" Margin="11,201,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="72"/>
+                <RadioButton x:Name="rdbAccessible_True" Content="True" HorizontalAlignment="Left" Margin="88,206,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="rdbAccessible_False" Content="False" HorizontalAlignment="Left" Margin="138,207,0,0" VerticalAlignment="Top"/>
+
+
+
             </Grid>
             <Grid Name="RoomDescForm" Visibility="Hidden">
                 <TextBlock>Room Desc</TextBlock>
             </Grid>
         </Grid>
-        <Image VerticalAlignment="Center" Source="/res/Floor 1_room_numbers.png" Margin="297,0,0,0" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Width="1051"/>
+        <Image x:Name="imgFloor" VerticalAlignment="Center" Source="/res/Floor 1_room_numbers.png" Margin="297,0,0,0" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Width="1051"/>
     </Grid>
 </Window>
