@@ -10,12 +10,12 @@
         <BooleanToVisibilityConverter x:Key="BoolTovisible" />
     </Window.Resources>
     <Grid>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Height="44" Width="89" Click="NodeBC" Margin="0,5,0,0">New USBNode</Button>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="82,49,0,0" Height="59" Width="62" Click="RoomDescBC">New RoomDesc</Button>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,49,0,0" Height="59" Width="77" Click="EditNodeBC">Edit Node</Button>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="149,49,0,0" Height="59" Width="79" Click="EditRoomDescBC">Edit RoomDesc</Button>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="179,0,0,0" Height="44" Width="48" Click="ExportBC" RenderTransformOrigin="3.214,-0.65">Export</Button>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="112,5,0,0" Height="44" Width="53" Click="ChangeImageBC">Change Image</Button>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Height="44" Width="71" Click="NodeBC" Margin="0,5,0,0" FontSize="10">New USBNode</Button>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="71,5,0,0" Height="44" Width="85" Click="RoomDescBC" FontSize="11">New RoomDesc</Button>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,49,0,0" Height="41" Width="71" Click="EditNodeBC">Edit Node</Button>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="71,49,0,0" Height="41" Width="85" Click="EditRoomDescBC">Edit RoomDesc</Button>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="156,5,0,0" Height="44" Width="57" Click="ExportBC" RenderTransformOrigin="3.214,-0.65">Export</Button>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="156,49,0,0" Height="41" Width="57" Click="ChangeImageBC">Image ></Button>
         <Grid Name="Form" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.384,1.829" Height="614" Margin="10,113,0,0" Width="287">
             <Grid Name="USBNodeForm" Visibility="Hidden">
 
@@ -39,7 +39,7 @@
                 <Label x:Name="lblAcessible" Content="Accessible" HorizontalAlignment="Left" Margin="11,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="72"/>
                 <RadioButton x:Name="rdbAccessible_True" Content="True" HorizontalAlignment="Left" Margin="88,255,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rdbAccessible_False" Content="False" HorizontalAlignment="Left" Margin="138,256,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="btnSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,298,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitNode_Click" RenderTransformOrigin="0.587,1.774"/>
+                <Button x:Name="btnSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,298,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="NewNodeSubmit" RenderTransformOrigin="0.587,1.774"/>
 
             </Grid>
             <Grid Name="RoomDescForm" Visibility="Hidden">
@@ -57,7 +57,7 @@
 
                 <Label x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="11,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="27" Width="77"/>
                 <TextBox x:Name="txbDescription_Value" HorizontalAlignment="Left" Height="104" Margin="88,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
-                <Button x:Name="btnSubmitRoomDesc" Content="Submit" HorizontalAlignment="Left" Margin="177,288,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitRoomDesc_Click"/>
+                <Button x:Name="btnSubmitRoomDesc" Content="Submit" HorizontalAlignment="Left" Margin="177,288,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="NewRoomDescSubmit"/>
 
 
             </Grid>
@@ -85,14 +85,14 @@
                 <Label x:Name="lblEditAcessible" Content="Accessible" HorizontalAlignment="Left" Margin="11,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="72"/>
                 <RadioButton x:Name="rdbEditAccessible_True" Content="True" HorizontalAlignment="Left" Margin="88,255,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rdbEditAccessible_False" Content="False" HorizontalAlignment="Left" Margin="138,256,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="btnEditSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,298,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitNode_Click"/>
+                <Button x:Name="btnEditSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,298,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="NewNodeSubmit"/>
 
             </Grid>
             <Grid Name="EditRoomDescForm" Visibility="Hidden">
-                
+
                 <Label x:Name="lblEditRoomDesc" Content="Edit Room Description" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
                 <TextBox x:Name="txbEditRoomDesc_Value" HorizontalAlignment="Left" Height="23" Margin="88,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
-                
+
                 <Label x:Name="lblEditRoomDescID" Content="ID" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
 
                 <Label x:Name="lblEditAltName" Content="Alt Name" HorizontalAlignment="Left" Margin="11,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
@@ -103,22 +103,22 @@
 
                 <Label x:Name="lblEditDescription" Content="Description" HorizontalAlignment="Left" Margin="11,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="27" Width="77"/>
                 <TextBox x:Name="txbEditDescription_Value" HorizontalAlignment="Left" Height="104" Margin="88,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
-                <Button x:Name="btnEditSubmitRoomDesc" Content="Submit" HorizontalAlignment="Left" Margin="177,288,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitRoomDesc_Click"/>
+                <Button x:Name="btnEditSubmitRoomDesc" Content="Submit" HorizontalAlignment="Left" Margin="177,288,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="NewRoomDescSubmit"/>
 
 
             </Grid>
 
-            <Grid Name="lstbNodesForm" Visibility="Visible">
+            <Grid Name="lstbNodesForm" Visibility="Hidden">
 
                 <Label x:Name="lblSelectNode" Content="Select A Node" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
 
                 <ListBox x:Name="lstbSelectNode" HorizontalAlignment="Left" Height="147" Margin="10,59,0,0" VerticalAlignment="Top" Width="267"/>
 
-                <Button x:Name="btnSubmitSelectNode" Content="Submit" HorizontalAlignment="Left" Margin="202,218,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitRoomDesc_Click"/>
+                <Button x:Name="btnSubmitSelectNode" Content="Submit" HorizontalAlignment="Left" Margin="202,218,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="NewRoomDescSubmit"/>
 
 
             </Grid>
-            
+
         </Grid>
         <Image x:Name="imgFloor" VerticalAlignment="Center" Source="/res/Image1.png" Margin="297,0,0,0" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Width="1051"/>
     </Grid>

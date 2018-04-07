@@ -17,20 +17,20 @@ namespace DevToolProto
 {
     struct NodeData_t
     {
-        string id;
-        string rdid;
-        string position;
-        string connecting;
-        string level;
-        string isAccessible;
+        public string id;
+        public string rdid;
+        public string position;
+        public string connecting;
+        public string level;
+        public string isAccessible;
     }
 
     struct RoomDescData_t
     {
-        string id;
-        string altname;
-        string roomname;
-        string description;
+        public string id;
+        public string altname;
+        public string roomname;
+        public string description;
     }
 
     /// <summary>
@@ -38,37 +38,48 @@ namespace DevToolProto
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Image constants
         private const int TOTAL_IMAGES = 6;
         private const int BASE_IMAGE_INDEX = 1;
         private const string IMAGE_EXT = ".png";
         private const string IMAGE_PATH = "pack://application:,,,/res/Image";
 
+        // XAML elements
+        private readonly string[] GRID_NAMES = { "USBNodeForm", "RoomDescForm", "EditUSBNodeForm", "EditRoomDescForm", "lstbNodesForm" };
+        private List<Grid> grids;
+
         // Store struct of data to image index
         private Dictionary<int, List<NodeData_t>> nodeData;
-        private Dictionary<int, List<RoomDescData_t>> roomData;
+        private List<RoomDescData_t> roomData;
 
-        private List<Grid> grids;
-        private List<Button> buttons;
-        private List<Label> labels;
+        // IDs
+        private int nextNodeID;
+        private int nextRDID;
 
+        // Images
+        private ListBox listOutput;
+
+        // Track index of currently displayed image
         private int currentImage;
 
         public MainWindow()
         {
             InitializeComponent();
+            // Initialise
             nodeData = new Dictionary<int, List<NodeData_t>>();
-            roomData = new Dictionary<int, List<RoomDescData_t>>();
+            roomData = new List<RoomDescData_t>();
 
-            grids = new List<Grid>
+            grids = new List<Grid>();
+            foreach (string name in GRID_NAMES)
             {
-                (Grid)FindName("USBNodeForm"),
-                (Grid)FindName("RoomDescForm")
-            };
-            buttons = new List<Button>();
-            labels = new List<Label>();
+                grids.Add((Grid)FindName(name));
+            }
 
             currentImage = BASE_IMAGE_INDEX;
+            nextNodeID = 0;
+            nextRDID = 0;
 
+            listOutput = (ListBox)FindName("lstbSelectNode");
         }
 
         private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
@@ -76,34 +87,62 @@ namespace DevToolProto
             MessageBox.Show("You clicked me at " + e.GetPosition(this).ToString());
         }
 
-        // Menu Button click listeners
-
+        // Node button click displays the form for making a new node
         private void NodeBC(object sender, RoutedEventArgs e)
         {
             ChangeGridVisibility(0);
         }
 
+        // RooomDesc button click displays the form for making a new RoomDesc
         private void RoomDescBC(object sender, RoutedEventArgs e)
         {
             ChangeGridVisibility(1);
         }
+
+        // Opens a list of already made nodes
         private void EditNodeBC(object sender, RoutedEventArgs e)
         {
-            ChangeGridVisibility(2);
+            ChangeGridVisibility(4);
             // Output data list
+            listOutput.Items.Clear();
+            if(nodeData.TryGetValue(currentImage, out List<NodeData_t> currentNodes))
+            {
+                foreach (NodeData_t ndt in currentNodes)
+                {
+
+                    listOutput.Items.Add(new ListBoxItem
+                    {
+                        Content = "ID: " + ndt.id + " | Pos: " + ndt.position + " | Cons: " + ndt.connecting + " | Level: " + ndt.level + " | Access: " + ndt.isAccessible
+                    });
+                }
+            }
         }
+
+        // Opens a list of already made RoomDescs
         private void EditRoomDescBC(object sender, RoutedEventArgs e)
         {
-            ChangeGridVisibility(3);
+            ChangeGridVisibility(4);
             // Output data list
+            listOutput.Items.Clear();
+            foreach (RoomDescData_t rdt in roomData)
+            {
+                listOutput.Items.Add(new ListBoxItem
+                {
+                    Content = "ID: " + rdt.id + " Name: " + rdt.roomname + " | Altname: " + rdt.altname
+                });
+            }
         }
+
+        // Exports the data to xml
         private void ExportBC(object sender, RoutedEventArgs e)
         {
         }
+
+        // Changes the image being displayed to the next one (index increment)
         private void ChangeImageBC(object sender, RoutedEventArgs e)
         {
             currentImage++;
-            if(currentImage > TOTAL_IMAGES)
+            if (currentImage > TOTAL_IMAGES)
             {
                 currentImage = BASE_IMAGE_INDEX;
             }
@@ -112,44 +151,160 @@ namespace DevToolProto
         }
 
         // Submit button data listeners
-        private void NewNodeSumbit(object sender, RoutedEventArgs e)
+        private void NewNodeSubmit(object sender, RoutedEventArgs e)
         {
+            // Get RDID data and validate
+            string inRdid = ((TextBox)FindName("txbRDID_Value")).Text;
+            bool isRdidValid = true;
+            if(Int32.TryParse(inRdid, out int rdidResult))
+            {
+                isRdidValid = rdidResult < 0 ? false : true;
+            }
+            else
+            {
+                isRdidValid = false;
+            }
+            if(!isRdidValid)
+            {
+                // Invalid
+                MessageBox.Show("RDID must be a number and greater than or equal to 0.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Get position data and validate
+            string inPosition = ((TextBox)FindName("txbPosition_Value")).Text;
+            string[] posSplit = inPosition.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            if (posSplit.Length != 2)
+            {
+                MessageBox.Show("Incorrect number of coordinates, should be two in format (x,y).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            foreach (string pos in posSplit)
+            {
+                if(!Int32.TryParse(pos, out int posResult))
+                {
+                    MessageBox.Show("Position x and y must be a number, use format (x,y).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+
+            // Get connecting data and validate
+            string inConnecting = ((TextBox)FindName("txbConnecting_Value")).Text;
+            string[] icSplit = inConnecting.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            if (icSplit.Length <= 0)
+            {
+                var warnResult = MessageBox.Show("This node does not have any connections. Continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if(warnResult == MessageBoxResult.No)
+                {
+                    return;
+                }
+            }
+            foreach(string ic in icSplit)
+            {
+                bool isIcValid = true;
+                if(Int32.TryParse(ic, out int icResult))
+                {
+                    isIcValid = icResult < 0 ? false : true;
+                }
+                else
+                {
+                    isIcValid = false;
+                }
+                if(!isIcValid)
+                {
+                    MessageBox.Show("Each connection must be an ID of a node, which is a number greater than or equal to 0.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+
+            string inLevel = ((TextBox)FindName("txbLevel")).Text;
+            int levelResult = Int32.MinValue;
+            Int32.TryParse(inLevel, out levelResult);
+            if (levelResult < BASE_IMAGE_INDEX || levelResult > TOTAL_IMAGES)
+            {
+                MessageBox.Show("Level must be a number between " + BASE_IMAGE_INDEX + " and " + TOTAL_IMAGES + " inclusively.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            bool inIsAccessible = ((RadioButton)FindName("rdbAccessible_True")).IsEnabled; // If true then it is accessible, if not then false
+
             // Populate NodeData_t with data from text boxes
-            NodeData_t data = new NodeData_t();
-
-
+            NodeData_t data = new NodeData_t
+            {
+                id = nextNodeID.ToString(),
+                rdid = inRdid,
+                position = inPosition,
+                connecting = inConnecting,
+                level = inLevel,
+                isAccessible = inIsAccessible.ToString()
+            };
 
             // Add data to dictionary
-            if(nodeData[currentImage] == null)
+            if (!nodeData.ContainsKey(currentImage))
             {
-                nodeData[currentImage] = new List<NodeData_t>();
+                nodeData[Int32.Parse(inLevel)] = new List<NodeData_t>();
             }
-            nodeData[currentImage].Add(data);
+            nodeData[Int32.Parse(inLevel)].Add(data);
+
+            MessageBox.Show("New node has been created with id " + nextNodeID + ".", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            nextNodeID++;
         }
-        private void NewRoomDescSumbit(object sender, RoutedEventArgs e)
+
+        private void NewRoomDescSubmit(object sender, RoutedEventArgs e)
         {
-            // Populate RoomDescData_t with data from text boxes
-            RoomDescData_t data = new RoomDescData_t();
-
-
-            // Add data to dictionary
-            if (roomData[currentImage] == null)
+            string warnText = "";
+            string inAltname = ((TextBox)FindName("txbAltName_Value")).Text;
+            if(inAltname.Length <= 0)
             {
-                roomData[currentImage] = new List<RoomDescData_t>();
+                warnText += "This room desc does not have any altname. Continue?\n";
             }
-            roomData[currentImage].Add(data);
+
+            string inRoomname = ((TextBox)FindName("txbRoomName_Value")).Text;
+            if(inRoomname.Length <= 0)
+            {
+                warnText += "This room desc does not have any roomname. Continue?\n";
+            }
+
+            string inDesc = ((TextBox)FindName("txbDescription_Value")).Text;
+            if(inDesc.Length <= 0)
+            {
+                warnText += "This room desc does not have any description. Continue?\n";
+            }
+            if(!warnText.Equals(""))
+            {
+                var warnResult = MessageBox.Show(warnText, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (warnResult == MessageBoxResult.No)
+                {
+                    return;
+                }
+            }
+
+            // Populate RoomDescData_t with data from text boxes
+            RoomDescData_t data = new RoomDescData_t
+            {
+                id = nextRDID.ToString(),
+                altname = inAltname,
+                roomname = inRoomname,
+                description = inDesc
+            };
+
+            // Add data to list
+            roomData.Add(data);
+
+            MessageBox.Show("New room desc has been created with id " + nextRDID + ".", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            nextRDID++;
         }
 
         private void ChangeGridVisibility(int index)
         {
             // Ensure the index is in range
-            if(index >= grids.Count)
+            if (index >= grids.Count)
             {
                 throw new IndexOutOfRangeException("");
             }
 
             // Hide all grids
-            foreach(Grid g in grids)
+            foreach (Grid g in grids)
             {
                 g.Visibility = System.Windows.Visibility.Hidden;
             }
@@ -157,16 +312,6 @@ namespace DevToolProto
             // Unhide requested grid
             grids[index].Visibility = System.Windows.Visibility.Visible;
         }
-        
-        private void btnSubmitNode_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-
-        
-        private void btnSubmitRoomDesc_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
