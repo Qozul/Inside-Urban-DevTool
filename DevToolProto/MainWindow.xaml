@@ -18,41 +18,94 @@
         <Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="112,5,0,0" Height="44" Width="53" Click="ChangeImageBC">Change Image</Button>
         <Grid Name="Form" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.384,1.829" Height="614" Margin="10,113,0,0" Width="287">
             <Grid Name="USBNodeForm" Visibility="Hidden">
-                
-                <Label x:Name="lblID" Content="ID" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top"/>
-                <Label x:Name="lblID_Value" Content="----" HorizontalAlignment="Left" Margin="83,10,0,0" VerticalAlignment="Top"/>
 
-                <Label x:Name="lblRDID" Content="RDID" HorizontalAlignment="Left" Margin="11,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
-                <TextBox x:Name="txbRDID_Value" HorizontalAlignment="Left" Height="23" Margin="88,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <Label x:Name="lblNewNode" Content="New Node" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
 
-                <Label x:Name="lblPosition" Content="Position" HorizontalAlignment="Left" Margin="11,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
-                <TextBox x:Name="txbPosition_Value" HorizontalAlignment="Left" Height="23" Margin="88,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <Label x:Name="lblID" Content="ID" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="lblID_Value" Content="----" HorizontalAlignment="Left" Margin="83,59,0,0" VerticalAlignment="Top"/>
 
-                <Label x:Name="lblConnecting" Content="Connecting&#xD;&#xA;Value" HorizontalAlignment="Left" Margin="11,115,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="41" Width="77"/>
-                <TextBox x:Name="txbConnecting_Value" HorizontalAlignment="Left" Height="23" Margin="88,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
-                
-                <Label x:Name="lblLevel" Content="Level" HorizontalAlignment="Left" Margin="11,162,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="47"/>
-                <TextBox x:Name="txbLevel" HorizontalAlignment="Left" Height="23" Margin="88,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
-                
-                <Label x:Name="lblAcessible" Content="Accessible" HorizontalAlignment="Left" Margin="11,201,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="72"/>
-                <RadioButton x:Name="rdbAccessible_True" Content="True" HorizontalAlignment="Left" Margin="88,206,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="rdbAccessible_False" Content="False" HorizontalAlignment="Left" Margin="138,207,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="btnSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,249,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitNode_Click"/>
+                <Label x:Name="lblRDID" Content="RDID" HorizontalAlignment="Left" Margin="11,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbRDID_Value" HorizontalAlignment="Left" Height="23" Margin="88,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblPosition" Content="Position" HorizontalAlignment="Left" Margin="11,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbPosition_Value" HorizontalAlignment="Left" Height="23" Margin="88,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblConnecting" Content="Connecting&#xD;&#xA;Value" HorizontalAlignment="Left" Margin="11,164,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="41" Width="77"/>
+                <TextBox x:Name="txbConnecting_Value" HorizontalAlignment="Left" Height="23" Margin="88,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblLevel" Content="Level" HorizontalAlignment="Left" Margin="11,211,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="47"/>
+                <TextBox x:Name="txbLevel" HorizontalAlignment="Left" Height="23" Margin="88,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblAcessible" Content="Accessible" HorizontalAlignment="Left" Margin="11,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="72"/>
+                <RadioButton x:Name="rdbAccessible_True" Content="True" HorizontalAlignment="Left" Margin="88,255,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="rdbAccessible_False" Content="False" HorizontalAlignment="Left" Margin="138,256,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="btnSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,298,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitNode_Click" RenderTransformOrigin="0.587,1.774"/>
 
             </Grid>
-            <Grid Name="RoomDescForm" Visibility="Visible">
-                <Label x:Name="lblRoomDescID" Content="ID" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top"/>
-                <Label x:Name="lblRoomDescID_Value" Content="----" HorizontalAlignment="Left" Margin="84,10,0,0" VerticalAlignment="Top"/>
+            <Grid Name="RoomDescForm" Visibility="Hidden">
 
-                <Label x:Name="lblAltName" Content="Alt Name" HorizontalAlignment="Left" Margin="11,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
-                <TextBox x:Name="txbAltName_Value" HorizontalAlignment="Left" Height="23" Margin="88,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <Label x:Name="lblNewRoomDesc" Content="New Room Description" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
 
-                <Label x:Name="lblRoomName" Content="Room Name" HorizontalAlignment="Left" Margin="11,80,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
-                <TextBox x:Name="txbRoomName_Value" HorizontalAlignment="Left" Height="23" Margin="88,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <Label x:Name="lblRoomDescID" Content="ID" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="lblRoomDescID_Value" Content="----" HorizontalAlignment="Left" Margin="84,59,0,0" VerticalAlignment="Top"/>
 
-                <Label x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="11,116,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="27" Width="77"/>
-                <TextBox x:Name="txbDescription_Value" HorizontalAlignment="Left" Height="104" Margin="88,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
-                <Button x:Name="btnSubmitRoomDesc" Content="Submit" HorizontalAlignment="Left" Margin="177,239,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitRoomDesc_Click"/>
+                <Label x:Name="lblAltName" Content="Alt Name" HorizontalAlignment="Left" Margin="11,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbAltName_Value" HorizontalAlignment="Left" Height="23" Margin="88,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblRoomName" Content="Room Name" HorizontalAlignment="Left" Margin="11,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbRoomName_Value" HorizontalAlignment="Left" Height="23" Margin="88,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="11,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="27" Width="77"/>
+                <TextBox x:Name="txbDescription_Value" HorizontalAlignment="Left" Height="104" Margin="88,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <Button x:Name="btnSubmitRoomDesc" Content="Submit" HorizontalAlignment="Left" Margin="177,288,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitRoomDesc_Click"/>
+
+
+            </Grid>
+
+            <!-- Edit Grids  -->
+            <Grid Name="EditUSBNodeForm" Visibility="Hidden">
+
+                <Label x:Name="lblEditNode" Content="Edit Node" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
+
+                <Label x:Name="lblEditID" Content="ID" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
+
+                <Label x:Name="lblEditID_Value" Content="----" HorizontalAlignment="Left" Margin="83,59,0,0" VerticalAlignment="Top"/>
+
+                <Label x:Name="lblEditRDID" Content="RDID" HorizontalAlignment="Left" Margin="11,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbEditRDID_Value" HorizontalAlignment="Left" Height="23" Margin="88,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblEditPosition" Content="Position" HorizontalAlignment="Left" Margin="11,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbEditPosition_Value" HorizontalAlignment="Left" Height="23" Margin="88,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblEditConnecting" Content="Connecting&#xD;&#xA;Value" HorizontalAlignment="Left" Margin="11,164,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="41" Width="77"/>
+                <TextBox x:Name="txbEditConnecting_Value" HorizontalAlignment="Left" Height="23" Margin="88,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblEditLevel" Content="Level" HorizontalAlignment="Left" Margin="11,211,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="47"/>
+                <TextBox x:Name="txbEditLevel" HorizontalAlignment="Left" Height="23" Margin="88,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblEditAcessible" Content="Accessible" HorizontalAlignment="Left" Margin="11,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="72"/>
+                <RadioButton x:Name="rdbEditAccessible_True" Content="True" HorizontalAlignment="Left" Margin="88,255,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="rdbEditAccessible_False" Content="False" HorizontalAlignment="Left" Margin="138,256,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="btnEditSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,298,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitNode_Click"/>
+
+            </Grid>
+            <Grid Name="EditRoomDescForm" Visibility="Hidden">
+                
+                <Label x:Name="lblEditRoomDesc" Content="Edit Room Description" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
+                
+                <Label x:Name="lblEditRoomDescID" Content="ID" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
+
+                <Label x:Name="lblEditRoomDescID_Value" Content="----" HorizontalAlignment="Left" Margin="84,59,0,0" VerticalAlignment="Top"/>
+
+                <Label x:Name="lblEditAltName" Content="Alt Name" HorizontalAlignment="Left" Margin="11,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbEditAltName_Value" HorizontalAlignment="Left" Height="23" Margin="88,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblEditRoomName" Content="Room Name" HorizontalAlignment="Left" Margin="11,129,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
+                <TextBox x:Name="txbEditRoomName_Value" HorizontalAlignment="Left" Height="23" Margin="88,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+
+                <Label x:Name="lblEditDescription" Content="Description" HorizontalAlignment="Left" Margin="11,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="27" Width="77"/>
+                <TextBox x:Name="txbEditDescription_Value" HorizontalAlignment="Left" Height="104" Margin="88,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <Button x:Name="btnEditSubmitRoomDesc" Content="Submit" HorizontalAlignment="Left" Margin="177,288,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="btnSubmitRoomDesc_Click"/>
 
 
             </Grid>
