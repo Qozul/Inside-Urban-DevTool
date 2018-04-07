@@ -157,6 +157,16 @@ namespace DevToolProto
             // Unhide requested grid
             grids[index].Visibility = System.Windows.Visibility.Visible;
         }
+        
+        private void btnSubmitNode_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        
+        private void btnSubmitRoomDesc_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
