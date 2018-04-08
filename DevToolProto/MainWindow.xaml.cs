@@ -155,78 +155,16 @@ namespace DevToolProto
         {
             // Get RDID data and validate
             string inRdid = ((TextBox)FindName("txbRDID_Value")).Text;
-            bool isRdidValid = true;
-            if(Int32.TryParse(inRdid, out int rdidResult))
-            {
-                isRdidValid = rdidResult < 0 ? false : true;
-            }
-            else
-            {
-                isRdidValid = false;
-            }
-            if(!isRdidValid)
-            {
-                // Invalid
-                MessageBox.Show("RDID must be a number and greater than or equal to 0.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            // Get position data and validate
             string inPosition = ((TextBox)FindName("txbPosition_Value")).Text;
-            string[] posSplit = inPosition.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
-            if (posSplit.Length != 2)
-            {
-                MessageBox.Show("Incorrect number of coordinates, should be two in format (x,y).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            foreach (string pos in posSplit)
-            {
-                if(!Int32.TryParse(pos, out int posResult))
-                {
-                    MessageBox.Show("Position x and y must be a number, use format (x,y).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
-
-            // Get connecting data and validate
             string inConnecting = ((TextBox)FindName("txbConnecting_Value")).Text;
-            string[] icSplit = inConnecting.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
-            if (icSplit.Length <= 0)
-            {
-                var warnResult = MessageBox.Show("This node does not have any connections. Continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if(warnResult == MessageBoxResult.No)
-                {
-                    return;
-                }
-            }
-            foreach(string ic in icSplit)
-            {
-                bool isIcValid = true;
-                if(Int32.TryParse(ic, out int icResult))
-                {
-                    isIcValid = icResult < 0 ? false : true;
-                }
-                else
-                {
-                    isIcValid = false;
-                }
-                if(!isIcValid)
-                {
-                    MessageBox.Show("Each connection must be an ID of a node, which is a number greater than or equal to 0.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
-
             string inLevel = ((TextBox)FindName("txbLevel")).Text;
-            int levelResult = Int32.MinValue;
-            Int32.TryParse(inLevel, out levelResult);
-            if (levelResult < BASE_IMAGE_INDEX || levelResult > TOTAL_IMAGES)
+            bool inIsAccessible = ((RadioButton)FindName("rdbAccessible_True")).IsEnabled; // If true then it is accessible, if not then false
+
+            if(!ValidateNodeData(inRdid, inPosition, inConnecting, inLevel))
             {
-                MessageBox.Show("Level must be a number between " + BASE_IMAGE_INDEX + " and " + TOTAL_IMAGES + " inclusively.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            bool inIsAccessible = ((RadioButton)FindName("rdbAccessible_True")).IsEnabled; // If true then it is accessible, if not then false
 
             // Populate NodeData_t with data from text boxes
             NodeData_t data = new NodeData_t
@@ -252,31 +190,13 @@ namespace DevToolProto
 
         private void NewRoomDescSubmit(object sender, RoutedEventArgs e)
         {
-            string warnText = "";
             string inAltname = ((TextBox)FindName("txbAltName_Value")).Text;
-            if(inAltname.Length <= 0)
-            {
-                warnText += "This room desc does not have any altname. Continue?\n";
-            }
-
             string inRoomname = ((TextBox)FindName("txbRoomName_Value")).Text;
-            if(inRoomname.Length <= 0)
-            {
-                warnText += "This room desc does not have any roomname. Continue?\n";
-            }
-
             string inDesc = ((TextBox)FindName("txbDescription_Value")).Text;
-            if(inDesc.Length <= 0)
+
+            if(!ValidateRDData(inAltname, inRoomname, inDesc))
             {
-                warnText += "This room desc does not have any description. Continue?\n";
-            }
-            if(!warnText.Equals(""))
-            {
-                var warnResult = MessageBox.Show(warnText, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (warnResult == MessageBoxResult.No)
-                {
-                    return;
-                }
+                return;
             }
 
             // Populate RoomDescData_t with data from text boxes
@@ -293,6 +213,106 @@ namespace DevToolProto
 
             MessageBox.Show("New room desc has been created with id " + nextRDID + ".", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             nextRDID++;
+        }
+
+        private bool ValidateNodeData(string inRdid, string inPosition, string inConnecting, string inLevel)
+        {
+            bool isRdidValid = true;
+            if (Int32.TryParse(inRdid, out int rdidResult))
+            {
+                isRdidValid = rdidResult < 0 ? false : true;
+            }
+            else
+            {
+                isRdidValid = false;
+            }
+            if (!isRdidValid)
+            {
+                // Invalid
+                MessageBox.Show("RDID must be a number and greater than or equal to 0.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            // Get position data and validate
+            string[] posSplit = inPosition.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            if (posSplit.Length != 2)
+            {
+                MessageBox.Show("Incorrect number of coordinates, should be two in format (x,y).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            foreach (string pos in posSplit)
+            {
+                if (!Int32.TryParse(pos, out int posResult))
+                {
+                    MessageBox.Show("Position x and y must be a number, use format (x,y).", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
+
+            // Get connecting data and validate
+            string[] icSplit = inConnecting.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            if (icSplit.Length <= 0)
+            {
+                var warnResult = MessageBox.Show("This node does not have any connections. Continue?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (warnResult == MessageBoxResult.No)
+                {
+                    return false;
+                }
+            }
+            foreach (string ic in icSplit)
+            {
+                bool isIcValid = true;
+                if (Int32.TryParse(ic, out int icResult))
+                {
+                    isIcValid = icResult < 0 ? false : true;
+                }
+                else
+                {
+                    isIcValid = false;
+                }
+                if (!isIcValid)
+                {
+                    MessageBox.Show("Each connection must be an ID of a node, which is a number greater than or equal to 0.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
+
+            int levelResult = Int32.MinValue;
+            Int32.TryParse(inLevel, out levelResult);
+            if (levelResult < BASE_IMAGE_INDEX || levelResult > TOTAL_IMAGES)
+            {
+                MessageBox.Show("Level must be a number between " + BASE_IMAGE_INDEX + " and " + TOTAL_IMAGES + " inclusively.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateRDData(string inAltname, string inRoomname, string inDesc)
+        {
+            string warnText = "";
+            if (inAltname.Length <= 0)
+            {
+                warnText += "This room desc does not have any altname. Continue?\n";
+            }
+
+            if (inRoomname.Length <= 0)
+            {
+                warnText += "This room desc does not have any roomname. Continue?\n";
+            }
+
+            if (inDesc.Length <= 0)
+            {
+                warnText += "This room desc does not have any description. Continue?\n";
+            }
+            if (!warnText.Equals(""))
+            {
+                var warnResult = MessageBox.Show(warnText, "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (warnResult == MessageBoxResult.No)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void ChangeGridVisibility(int index)
