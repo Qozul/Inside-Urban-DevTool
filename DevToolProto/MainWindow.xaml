@@ -68,7 +68,7 @@
                 <Label x:Name="lblEditNode" Content="Edit Node" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
 
                 <Label x:Name="lblEditID" Content="ID" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txbEditID_Value" HorizontalAlignment="Left" Height="23" Margin="88,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
+                <TextBox x:Name="txbEditID_Value" HorizontalAlignment="Left" Height="23" Margin="88,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" IsReadOnly="True"/>
 
                 <Label x:Name="lblEditRDID" Content="RDID" HorizontalAlignment="Left" Margin="11,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
                 <TextBox x:Name="txbEditRDID_Value" HorizontalAlignment="Left" Height="23" Margin="88,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
@@ -85,7 +85,7 @@
                 <Label x:Name="lblEditAcessible" Content="Accessible" HorizontalAlignment="Left" Margin="11,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="26" Width="72"/>
                 <RadioButton x:Name="rdbEditAccessible_True" Content="True" HorizontalAlignment="Left" Margin="88,255,0,0" VerticalAlignment="Top"/>
                 <RadioButton x:Name="rdbEditAccessible_False" Content="False" HorizontalAlignment="Left" Margin="138,256,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="btnEditSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,298,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="NewNodeSubmit"/>
+                <Button x:Name="btnEditSubmitNode" Content="Submit" HorizontalAlignment="Left" Margin="177,298,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="EditNodeSubmit"/>
 
             </Grid>
             <Grid Name="EditRoomDescForm" Visibility="Hidden">
@@ -103,7 +103,7 @@
 
                 <Label x:Name="lblEditDescription" Content="Description" HorizontalAlignment="Left" Margin="11,165,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154" Height="27" Width="77"/>
                 <TextBox x:Name="txbEditDescription_Value" HorizontalAlignment="Left" Height="104" Margin="88,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
-                <Button x:Name="btnEditSubmitRoomDesc" Content="Submit" HorizontalAlignment="Left" Margin="177,288,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="NewRoomDescSubmit"/>
+                <Button x:Name="btnEditSubmitRoomDesc" Content="Submit" HorizontalAlignment="Left" Margin="177,288,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="EditRoomDescSubmit"/>
 
 
             </Grid>
@@ -114,7 +114,7 @@
 
                 <ListBox x:Name="lstbSelectNode" HorizontalAlignment="Left" Height="147" Margin="10,59,0,0" VerticalAlignment="Top" Width="267"/>
 
-                <Button x:Name="btnSubmitSelectNode" Content="Submit" HorizontalAlignment="Left" Margin="202,218,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="NewRoomDescSubmit"/>
+                <Button x:Name="btnSubmitSelectNode" Content="Submit" HorizontalAlignment="Left" Margin="202,218,0,0" VerticalAlignment="Top" Width="75" Height="31" Click="SelectEditBC"/>
 
 
             </Grid>
