@@ -43,7 +43,7 @@ namespace DevToolProto
         private const int TOTAL_IMAGES = 6;
         private const int BASE_IMAGE_INDEX = 1;
         private const string IMAGE_EXT = ".png";
-        private const string IMAGE_PATH = "pack://application:,,,/res/Image";
+        private const string IMAGE_PATH = "pack://application:,,,/res/sImage";
 
         // XAML elements
         private readonly string[] GRID_NAMES = { "USBNodeForm", "RoomDescForm", "EditUSBNodeForm", "EditRoomDescForm", "lstbNodesForm" };
@@ -92,7 +92,7 @@ namespace DevToolProto
 
         private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("You clicked me at " + e.GetPosition(this).ToString());
+            MessageBox.Show("You clicked me at " + (e.GetPosition(this).X - 301) + ", " + (e.GetPosition(this).Y - 1));
         }
 
         // Node button click displays the form for making a new node
