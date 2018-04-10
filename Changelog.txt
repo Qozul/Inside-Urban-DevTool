@@ -1,0 +1,13 @@
+Changelog 10/04/2018:
+
+Bug fixes:
+- Fixed an issue where nodes could not be selected for editing
+- Fixed an issue where nodes could not have values edited
+- Fixed an issue where roomdescs could not have values edited
+- Fixed various issues with text output
+
+QOL:
+- Added direct input to position field by clicking on the image
+- Added a console for all of the messages
+- Rearranged button positions
+- Changing the current image while on the edit list grid updates the edit list
