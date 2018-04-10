@@ -108,7 +108,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="res\sImage1.png" />
+    <Resource Include="res\sImage2.png" />
+    <Resource Include="res\sImage3.png" />
+    <Resource Include="res\sImage4.png" />
+    <Resource Include="res\sImage5.png" />
+    <Resource Include="res\sImage6.png" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>

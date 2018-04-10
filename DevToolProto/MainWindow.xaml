@@ -121,7 +121,7 @@
 
         </Grid>
         <Border BorderThickness="1" BorderBrush="#FF000000" Margin="300,0,0,0">
-            <Image x:Name="imgFloor" VerticalAlignment="Center" Source="/res/Image1.png" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Width="1024" Height="724"/>
+            <Image x:Name="imgFloor" VerticalAlignment="Center" Source="/res/sImage1.png" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Width="1024" Height="724"/>
         </Border>
     </Grid>
 </Window>
