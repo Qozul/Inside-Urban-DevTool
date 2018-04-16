@@ -120,8 +120,8 @@
             </Grid>
 
         </Grid>
-        <Border BorderThickness="1" BorderBrush="#FF000000" Margin="300,0,0,0">
-            <Image x:Name="imgFloor" VerticalAlignment="Center" Source="/res/sImage1.png" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Width="1024" Height="724"/>
+        <Border BorderThickness="1" BorderBrush="#FF000000" Margin="300,0,0,37">
+            <Image x:Name="imgFloor" VerticalAlignment="Center" Source="/res/sImage1.png" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Stretch="None" Height="694" Margin="0,0,0,-1" />
         </Border>
         <ScrollViewer HorizontalAlignment="Left" Height="89" Margin="10,95,0,0" VerticalAlignment="Top" Width="268" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <TextBlock x:Name="outConsole" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
