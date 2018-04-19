@@ -27,7 +27,8 @@ namespace DevToolProto
         private const int TOTAL_IMAGES = 6;
         private const int BASE_IMAGE_INDEX = 1;
         private const string IMAGE_EXT = ".png";
-        private const string IMAGE_PATH = "pack://application:,,,/res/sImage";
+        private const string CANVAS_IMAGE_PATH = "pack://application:,,,/res/";
+        private const string IMAGE_PATH = CANVAS_IMAGE_PATH + "sImage";
 
         // XAML elements
         private readonly string[] GRID_NAMES = { "USBNodeForm", "RoomDescForm", "EditUSBNodeForm", "EditRoomDescForm", "lstbNodesForm" };
@@ -55,6 +56,8 @@ namespace DevToolProto
         private int currentVisibleIdx;
 
         private TextBlock customConsole;
+        
+        private Canvas canvas;
 
         public MainWindow()
         {
@@ -80,11 +83,32 @@ namespace DevToolProto
 
             customConsole = (TextBlock)FindName("outConsole");
             customConsole.Text += "Dev Tool Successfully initialised.\n";
+
+            canvas = (Canvas)FindName("canvasView");
         }
 
         private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
         {
-            ((TextBox)FindName("txbPosition_Value")).Text = (e.GetPosition(this).X - 301) + ", " + (e.GetPosition(this).Y - 1);
+            if(grids[2].Visibility == Visibility.Visible)
+            {
+                ((TextBox)FindName("txbEditPosition_Value")).Text = (e.GetPosition(this).X - 301) + ", " + (e.GetPosition(this).Y - 1);
+            }
+            else
+            {
+                ((TextBox)FindName("txbPosition_Value")).Text = (e.GetPosition(this).X - 301) + ", " + (e.GetPosition(this).Y - 1);
+            }
+        }
+
+        private void UpdateNodeVisibility()
+        {
+            foreach(int key in nodeData.Keys)
+            {
+                Visibility flag = key == currentImage ? Visibility.Visible : Visibility.Hidden;
+                foreach(NodeData nData in nodeData[key])
+                {
+                    nData.Img.Visibility = flag;
+                }
+            }
         }
 
         // Node button click displays the form for making a new node
@@ -265,7 +289,7 @@ namespace DevToolProto
             }
             string path = IMAGE_PATH + currentImage + IMAGE_EXT;
             ((Image)FindName("imgFloor")).Source = new BitmapImage(new Uri(path));
-
+            UpdateNodeVisibility();
             if (((Grid)FindName(GRID_NAMES[4])).Visibility == Visibility.Visible)
             {
                 if(isEditNode == true)
@@ -302,9 +326,20 @@ namespace DevToolProto
             {
                 return;
             }
-            
+
+            // Create the image for this node
+            Image img = new Image()
+            {
+                Source = new BitmapImage(new Uri(CANVAS_IMAGE_PATH + "blackcirc" + IMAGE_EXT))
+            };
+            String[] parsePositions = inPosition.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            canvas.Children.Add(img);
+            // Safe to parse here because already checked in validation
+            Canvas.SetLeft(img, Int32.Parse(parsePositions[0]));
+            Canvas.SetTop(img, Int32.Parse(parsePositions[1]));
+
             // Populate NodeData with data from text boxes
-            NodeData data = new NodeData(nextNodeID.ToString(), inRdid, inPosition, inConnecting, inLevel, inIsAccessible.ToString());
+            NodeData data = new NodeData(nextNodeID.ToString(), inRdid, inPosition, inConnecting, inLevel, inIsAccessible.ToString(), img);
 
             int lvl = Int32.Parse(inLevel);
             // Add data to dictionary
@@ -337,6 +372,7 @@ namespace DevToolProto
 
         private void EditNodeSubmit(object sender, RoutedEventArgs e)
         {
+            string inId = ((TextBox)FindName("txbEditID_Value")).Text;
             string inRdid = ((TextBox)FindName("txbEditRDID_Value")).Text;
             string inPosition = ((TextBox)FindName("txbEditPosition_Value")).Text;
             string inConnecting = ((TextBox)FindName("txbEditConnecting_Value")).Text;
@@ -368,12 +404,20 @@ namespace DevToolProto
                 nodeData[lvl].Add(currentEditNode);
             }
 
+            Image img = currentEditNode.Img;
+            String[] parsePositions = inPosition.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            // Safe to parse here because already checked in validation
+            Canvas.SetLeft(img, Int32.Parse(parsePositions[0]));
+            Canvas.SetTop(img, Int32.Parse(parsePositions[1]));
+
+            currentEditNode.Id = inId;
             currentEditNode.Rdid = inRdid;
             currentEditNode.Position = inPosition;
             currentEditNode.Connecting = inConnecting;
             currentEditNode.Level = inLevel;
             currentEditNode.IsAccessible = inIsAccessible.ToString();
 
+            UpdateNodeVisibility();
             customConsole.Text += "Success: Edited Node with id " + currentEditNode.Id + ".\n";
             EditNodeBC(sender, e);
         }

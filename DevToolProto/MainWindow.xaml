@@ -68,7 +68,7 @@
                 <Label x:Name="lblEditNode" Content="Edit Node" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
 
                 <Label x:Name="lblEditID" Content="ID" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txbEditID_Value" HorizontalAlignment="Left" Height="23" Margin="88,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" IsReadOnly="True"/>
+                <TextBox x:Name="txbEditID_Value" HorizontalAlignment="Left" Height="23" Margin="88,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
 
                 <Label x:Name="lblEditRDID" Content="RDID" HorizontalAlignment="Left" Margin="11,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.682,2.154"/>
                 <TextBox x:Name="txbEditRDID_Value" HorizontalAlignment="Left" Height="23" Margin="88,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
@@ -91,7 +91,7 @@
             <Grid Name="EditRoomDescForm" Visibility="Hidden">
 
                 <Label x:Name="lblEditRoomDesc" Content="Edit Room Description" HorizontalAlignment="Left" Margin="9,16,0,0" VerticalAlignment="Top" FontSize="20"/>
-                <TextBox x:Name="txbEditRoomDesc_Value" HorizontalAlignment="Left" Height="23" Margin="88,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" IsReadOnly="True"/>
+                <TextBox x:Name="txbEditRoomDesc_Value" HorizontalAlignment="Left" Height="23" Margin="88,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164"/>
 
                 <Label x:Name="lblEditRoomDescID" Content="ID" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
 
@@ -120,9 +120,9 @@
             </Grid>
 
         </Grid>
-        <Border BorderThickness="1" BorderBrush="#FF000000" Margin="300,0,0,37">
+        <Canvas x:Name="canvasView" Margin="300,0,0,37">
             <Image x:Name="imgFloor" VerticalAlignment="Center" Source="/res/sImage1.png" MouseDown="CanvasMouseUp" HorizontalAlignment="Left" Stretch="None" Height="694" Margin="0,0,0,-1" />
-        </Border>
+        </Canvas>
         <ScrollViewer HorizontalAlignment="Left" Height="89" Margin="10,95,0,0" VerticalAlignment="Top" Width="268" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <TextBlock x:Name="outConsole" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
         </ScrollViewer>

@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Controls;
+
 namespace DevToolProto.data
 {
     class NodeData
@@ -9,8 +11,9 @@ namespace DevToolProto.data
         public string Connecting { get; set; }
         public string Level { get; set; }
         public string IsAccessible { get; set; }
+        public Image Img { get; set; }
 
-        public NodeData(string id, string rdid, string pos, string con, string lev, string access)
+        public NodeData(string id, string rdid, string pos, string con, string lev, string access, Image img)
         {
             Id = id;
             Rdid = rdid;
@@ -18,6 +21,7 @@ namespace DevToolProto.data
             Connecting = con;
             Level = lev;
             IsAccessible = access;
+            Img = img;
         }
 
         override public string ToString()
