@@ -91,11 +91,11 @@ namespace DevToolProto
         {
             if(grids[2].Visibility == Visibility.Visible)
             {
-                ((TextBox)FindName("txbEditPosition_Value")).Text = (e.GetPosition(this).X - 301) + ", " + (e.GetPosition(this).Y - 1);
+                ((TextBox)FindName("txbEditPosition_Value")).Text = (e.GetPosition(this).X - 300) + ", " + (e.GetPosition(this).Y - 1);
             }
             else
             {
-                ((TextBox)FindName("txbPosition_Value")).Text = (e.GetPosition(this).X - 301) + ", " + (e.GetPosition(this).Y - 1);
+                ((TextBox)FindName("txbPosition_Value")).Text = (e.GetPosition(this).X - 300) + ", " + (e.GetPosition(this).Y - 1);
             }
         }
 
