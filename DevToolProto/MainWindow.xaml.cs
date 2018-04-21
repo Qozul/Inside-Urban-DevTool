@@ -24,6 +24,7 @@ namespace DevToolProto
     public partial class MainWindow : Window
     {
         // Image constants
+        private const int IMAGE_DIMENS = 13;
         private const int TOTAL_IMAGES = 6;
         private const int BASE_IMAGE_INDEX = 1;
         private const string IMAGE_EXT = ".png";
@@ -85,6 +86,102 @@ namespace DevToolProto
             customConsole.Text += "Dev Tool Successfully initialised.\n";
 
             canvas = (Canvas)FindName("canvasView");
+
+            // Import data on start
+            ImportData();
+        }
+
+        private void ImportData()
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load("./book.xml");
+            XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("/data/nodes/node");
+            foreach (XmlNode node in nodeList)
+            {
+                string[] nData = new string[6];
+                int nPtr = 0;
+                foreach (XmlNode nChild in node)
+                {
+                    if (nChild.NodeType != XmlNodeType.Comment)
+                    {
+                        nData[nPtr++] = nChild.Attributes["value"].Value;
+                    }
+                }
+                int lvl = Int32.Parse(nData[4]);
+                if (!nodeData.ContainsKey(lvl))
+                {
+                    nodeData[lvl] = new List<NodeData>();
+                }
+                nodeData[lvl].Add(new NodeData(nData[0], nData[1], nData[2], nData[3], nData[4], nData[5], GenNodeImage(nData[2])));
+            }
+            XmlNodeList roomList = xmlDoc.DocumentElement.SelectNodes("/data/descs/desc");
+            foreach (XmlNode desc in roomList)
+            {
+                string[] rData = new string[4];
+                int rPtr = 0;
+                foreach(XmlNode rChild in desc)
+                {
+                    if (rChild.NodeType != XmlNodeType.Comment)
+                    {
+                        rData[rPtr++] = rChild.Attributes["value"].Value;
+                    }
+                }
+                roomData.Add(new RoomData(rData[0], rData[1], rData[2], rData[3]));
+            }
+            currentImage--;
+            ChangeImageBC(null, null);
+        }
+
+        private Image GenNodeImage(string position)
+        {
+            Image img = new Image()
+            {
+                Source = new BitmapImage(new Uri(CANVAS_IMAGE_PATH + "blackcirc" + IMAGE_EXT))
+            };
+            String[] parsePositions = position.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            canvas.Children.Add(img);
+            // Safe to parse here because already checked in validation
+            Canvas.SetLeft(img, Int32.Parse(parsePositions[0]));
+            Canvas.SetTop(img, Int32.Parse(parsePositions[1]));
+            img.MouseUp += new MouseButtonEventHandler(ImageMouseUp);
+            return img;
+        }
+
+        private NodeData GetNodeByPosition(string pos)
+        {
+            foreach(int key in nodeData.Keys)
+            {
+                foreach(NodeData nData in nodeData[key])
+                {
+                    if(nData.Position == pos)
+                    {
+                        return nData;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private void ImageMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            List<string> positionPerms = new List<string>();
+            for (int i = -(IMAGE_DIMENS / 2); i < IMAGE_DIMENS / 2; i++)
+            {
+                for (int j = -(IMAGE_DIMENS / 2); j < IMAGE_DIMENS / 2; j++)
+                {
+                    positionPerms.Add((e.GetPosition(this).X - 300 + i) + ", " + (e.GetPosition(this).Y - 1 + j));
+                }
+            }
+            foreach (string perm in positionPerms)
+            {
+                NodeData data = GetNodeByPosition(perm);
+                if (data != null)
+                {
+                    // Found a match
+                    customConsole.Text += "Pressed node with ID " + data.Id + "\n";
+                    break;
+                }
+            }
         }
 
         private void CanvasMouseUp(object sender, MouseButtonEventArgs e)
@@ -327,19 +424,8 @@ namespace DevToolProto
                 return;
             }
 
-            // Create the image for this node
-            Image img = new Image()
-            {
-                Source = new BitmapImage(new Uri(CANVAS_IMAGE_PATH + "blackcirc" + IMAGE_EXT))
-            };
-            String[] parsePositions = inPosition.Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
-            canvas.Children.Add(img);
-            // Safe to parse here because already checked in validation
-            Canvas.SetLeft(img, Int32.Parse(parsePositions[0]));
-            Canvas.SetTop(img, Int32.Parse(parsePositions[1]));
-
             // Populate NodeData with data from text boxes
-            NodeData data = new NodeData(nextNodeID.ToString(), inRdid, inPosition, inConnecting, inLevel, inIsAccessible.ToString(), img);
+            NodeData data = new NodeData(nextNodeID.ToString(), inRdid, inPosition, inConnecting, inLevel, inIsAccessible.ToString(), GenNodeImage(inPosition));
 
             int lvl = Int32.Parse(inLevel);
             // Add data to dictionary
