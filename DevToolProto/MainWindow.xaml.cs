@@ -93,47 +93,53 @@ namespace DevToolProto
 
         private void ImportData()
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load("./book.xml");
-            XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("/data/nodes/node");
-            foreach (XmlNode node in nodeList)
+            try
             {
-                string[] nData = new string[6];
-                int nPtr = 0;
-                foreach (XmlNode nChild in node)
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load("./book.xml");
+                XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("/data/nodes/node");
+                foreach (XmlNode node in nodeList)
                 {
-                    if (nChild.NodeType != XmlNodeType.Comment)
+                    string[] nData = new string[6];
+                    int nPtr = 0;
+                    foreach (XmlNode nChild in node)
                     {
-                        nData[nPtr++] = nChild.Attributes["value"].Value;
+                        if (nChild.NodeType != XmlNodeType.Comment)
+                        {
+                            nData[nPtr++] = nChild.Attributes["value"].Value;
+                        }
                     }
+                    int lvl = Int32.Parse(nData[4]);
+                    if (!nodeData.ContainsKey(lvl))
+                    {
+                        nodeData[lvl] = new List<NodeData>();
+                    }
+                    if (nData[5] == "")
+                    {
+                        nData[5] = "True";
+                    }
+                    nodeData[lvl].Add(new NodeData(nData[0], nData[1], nData[2], nData[3], nData[4], nData[5], GenNodeImage(nData[2])));
                 }
-                int lvl = Int32.Parse(nData[4]);
-                if (!nodeData.ContainsKey(lvl))
+                XmlNodeList roomList = xmlDoc.DocumentElement.SelectNodes("/data/descs/desc");
+                foreach (XmlNode desc in roomList)
                 {
-                    nodeData[lvl] = new List<NodeData>();
+                    string[] rData = new string[4];
+                    int rPtr = 0;
+                    foreach (XmlNode rChild in desc)
+                    {
+                        if (rChild.NodeType != XmlNodeType.Comment)
+                        {
+                            rData[rPtr++] = rChild.Attributes["value"].Value;
+                        }
+                    }
+                    roomData.Add(new RoomData(rData[0], rData[1], rData[2], rData[3]));
                 }
-                if(nData[5] == "")
-                {
-                    nData[5] = "True";
-                }
-                nodeData[lvl].Add(new NodeData(nData[0], nData[1], nData[2], nData[3], nData[4], nData[5], GenNodeImage(nData[2])));
-            }
-            XmlNodeList roomList = xmlDoc.DocumentElement.SelectNodes("/data/descs/desc");
-            foreach (XmlNode desc in roomList)
+                currentImage--;
+                ChangeImageBC(null, null);
+            } catch(Exception)
             {
-                string[] rData = new string[4];
-                int rPtr = 0;
-                foreach(XmlNode rChild in desc)
-                {
-                    if (rChild.NodeType != XmlNodeType.Comment)
-                    {
-                        rData[rPtr++] = rChild.Attributes["value"].Value;
-                    }
-                }
-                roomData.Add(new RoomData(rData[0], rData[1], rData[2], rData[3]));
+                // Do not import, silently catch any exceptions that could occur
             }
-            currentImage--;
-            ChangeImageBC(null, null);
         }
 
         private Image GenNodeImage(string position)
