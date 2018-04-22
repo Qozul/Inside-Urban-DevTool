@@ -112,6 +112,10 @@ namespace DevToolProto
                 {
                     nodeData[lvl] = new List<NodeData>();
                 }
+                if(nData[5] == "")
+                {
+                    nData[5] = "True";
+                }
                 nodeData[lvl].Add(new NodeData(nData[0], nData[1], nData[2], nData[3], nData[4], nData[5], GenNodeImage(nData[2])));
             }
             XmlNodeList roomList = xmlDoc.DocumentElement.SelectNodes("/data/descs/desc");
