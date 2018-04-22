@@ -149,14 +149,11 @@ namespace DevToolProto
 
         private NodeData GetNodeByPosition(string pos)
         {
-            foreach(int key in nodeData.Keys)
+            foreach(NodeData nData in nodeData[currentImage])
             {
-                foreach(NodeData nData in nodeData[key])
+                if(nData.Position == pos)
                 {
-                    if(nData.Position == pos)
-                    {
-                        return nData;
-                    }
+                    return nData;
                 }
             }
             return null;
